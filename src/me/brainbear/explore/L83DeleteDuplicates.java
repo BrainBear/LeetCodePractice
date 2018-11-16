@@ -1,28 +1,25 @@
 package me.brainbear.explore;
 
-public class L82DeleteDuplicates {
+public class L83DeleteDuplicates {
 
     public ListNode deleteDuplicates(ListNode head) {
-        ListNode dummyHead = new ListNode(0);
-        dummyHead.next = head;
-
-        ListNode cur = dummyHead;
-
-        while (null != cur.next) {
-
-            int val = cur.next.val;
-
-            if (null != cur.next.next && val == cur.next.next.val) {
-                ListNode temp = cur.next.next.next;
-                while (null != temp && temp.val == val) {
-                    temp = temp.next;
-                }
-                cur.next = temp;
-            } else {
-                cur = cur.next;
-            }
+        if(null == head){
+            return null;
         }
-        return dummyHead.next;
+
+        ListNode cur = head;
+        ListNode next = cur.next;
+
+        while (next != null) {
+            while (next != null && next.val == cur.val) {
+                next = next.next;
+            }
+
+            cur.next = next;
+            cur = next;
+        }
+
+        return head;
     }
 
     public static class ListNode {
@@ -55,7 +52,7 @@ public class L82DeleteDuplicates {
 
 
     public static void main(String[] args) {
-        L82DeleteDuplicates deleteDuplicates = new L82DeleteDuplicates();
+        L83DeleteDuplicates deleteDuplicates = new L83DeleteDuplicates();
 
         ListNode testList = createTestList(new int[]{1, 1, 2});
         printList(testList);
